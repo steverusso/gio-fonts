@@ -1,8 +1,8 @@
-module github.com/steverusso/giofonts
+module github.com/steverusso/gio-fonts
 
 go 1.19
 
-require gioui.org v0.0.0-20221004231135-80196f3c3ed3
+require gioui.org v0.0.0-20221116222243-5c84cf7e9021
 
 require (
 	github.com/benoitkugler/textlayout v0.1.3 // indirect
