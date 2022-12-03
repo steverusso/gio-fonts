@@ -7,6 +7,9 @@ import (
 
 	"gioui.org/font/opentype"
 	"gioui.org/text"
+	"github.com/steverusso/gio-fonts/vegur/vegurbold"
+	"github.com/steverusso/gio-fonts/vegur/vegurlight"
+	"github.com/steverusso/gio-fonts/vegur/vegurregular"
 )
 
 var (
@@ -16,9 +19,9 @@ var (
 
 func Collection() []text.FontFace {
 	once.Do(func() {
-		register(text.Font{}, vegurOTF)
-		register(text.Font{Weight: text.Bold}, vegurBoldOTF)
-		register(text.Font{Weight: text.Light}, vegurLightOTF)
+		register(text.Font{}, vegurregular.OTF)
+		register(text.Font{Weight: text.Bold}, vegurbold.OTF)
+		register(text.Font{Weight: text.Light}, vegurlight.OTF)
 		// Ensure that any outside appends will not reuse the backing store.
 		n := len(collection)
 		collection = collection[:n:n]
@@ -29,17 +32,8 @@ func Collection() []text.FontFace {
 func register(fnt text.Font, data []byte) {
 	face, err := opentype.Parse(data)
 	if err != nil {
-		panic(fmt.Errorf("failed to parse font: %v", err))
+		panic(fmt.Errorf("failed to parse vegur font %v: %v", fnt, err))
 	}
 	fnt.Typeface = "Vegur"
 	collection = append(collection, text.FontFace{Font: fnt, Face: face})
 }
-
-//go:embed Vegur-Regular.otf
-var vegurOTF []byte
-
-//go:embed Vegur-Bold.otf
-var vegurBoldOTF []byte
-
-//go:embed Vegur-Light.otf
-var vegurLightOTF []byte
